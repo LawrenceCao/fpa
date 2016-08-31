@@ -19,8 +19,8 @@
 \description{
   This data set is the eye movement data recorded during reading sentences. 
   The sentences consists of 8 regions defined by the researcher. The 
-  experiment consists of 4 lists (8 items in each list), 23 subjects, and 
-  4 condtions. Each row contains the information of one fixation. This data
+  experiment consists of 2 lists (8 items in each list), 2 subjects, and 
+  4 conditions. Each row contains the information of one fixation. This data
   frame is a template for the data to be provided by users of fpa-package,
   and the number and names of variables should be same with this data frame.
   If the user does not have several lists in his/her experiment, lease use

@@ -30,14 +30,14 @@ condition <- region <- Region <- Item <- Condition <- Subject <- List <- subject
 #' information before the first-pass on that region will be discarded for each trial.
 #' @param TimeCourse is the time course to be analyzed after the first-pass of critical region. The
 #' unit is millisecond.
-#' @param TimeInterval is the time interval (or bin) to show in the time course of interest. The
+#' @param Interval is the time interval (or bin) to show in the time course of interest. The
 #' unit is millisecond, and the value should be smaller than the value for TimeCourse.
-#' @param Normalize is to choose whether to normalize the fixation duration according to each
-#' subject's mean duration and general mean duration. When Normalize is TRUE, the fixation durations
+#' @param norm is to choose whether to normalize the fixation duration according to each
+#' subject's mean duration and general mean duration. When norm is TRUE, the fixation durations
 #' are adjusted for each subject's reading rate. The default value if TRUE.
-#' @param ExcludeNoRegress is to choose whether to exclude the trials with no regression after the
+#' @param rm.nr is to choose whether to exclude the trials with no regression after the
 #' first-pass on critical region. The default value is FALSE.
-#' @param ExcludeFirstPass is to choose whether to exclude the fixations at the first pass (or Gaze
+#' @param rm.1p is to choose whether to exclude the fixations at the first pass (or Gaze
 #' duration) on critical region. The default value is TRUE.
 #' @return a data frame with the variables of "list", "subject", "condition", "region", "time",
 #' "fix_prob" (fixation probability), "y" (number of trials with fixation) and "N" (number of total
@@ -48,10 +48,10 @@ condition <- region <- Region <- Item <- Condition <- Subject <- List <- subject
 #' @examples
 #' data(rawdata)
 #' newdata <- ft2fp (rawdata, 4, 3000, 100)
-#' newdata <- ft2fp (rawdata, 4, 3000, 100, Normalize=TRUE, ExcludeNoRegress=TRUE, ExcludeFirstPass=FALSE)
+#' newdata <- ft2fp (rawdata, 4, 3000, 100, norm=TRUE, rm.nr=TRUE, rm.1p=FALSE)
 
 
-ft2fp <- function (data, CriticalRegion, TimeCourse, TimeInterval, Normalize=TRUE, ExcludeNoRegress=FALSE, ExcludeFirstPass=TRUE) {
+ft2fp <- function (data, CriticalRegion, TimeCourse, Interval, norm=TRUE, rm.nr=FALSE, rm.1p=TRUE) {
 
   # clean up the missing values
     data <- na.omit(data)
@@ -86,7 +86,7 @@ ft2fp <- function (data, CriticalRegion, TimeCourse, TimeInterval, Normalize=TRU
         }
 
       # exclude first-pass
-        if (nrow(dat) != 0 && ExcludeFirstPass==TRUE) {
+        if (nrow(dat) != 0 && rm.1p==TRUE) {
             dat$mark <- 0
             for (n in 1:nrow(dat)) {
                 if (min(dat$Region[1:n]) < CriticalRegion || max(dat$Region[1:n]) > CriticalRegion)
@@ -96,7 +96,7 @@ ft2fp <- function (data, CriticalRegion, TimeCourse, TimeInterval, Normalize=TRU
         }
 
       # exclude trials with no regression after first-pass on critical region
-        if (nrow(dat) != 0 && ExcludeNoRegress==TRUE) {
+        if (nrow(dat) != 0 && rm.nr==TRUE) {
             if (dat$Region[1] > CriticalRegion) dat <- NULL
         }
 
@@ -115,13 +115,13 @@ ft2fp <- function (data, CriticalRegion, TimeCourse, TimeInterval, Normalize=TRU
 
     # normalize the start and end time for each fixation
 
-    if (Normalize==TRUE) {
+    if (norm==TRUE) {
         data2 <- .normalizer(data2) # use the private function .normalizer
     }
 
   # calculate the fixation probabilities
-    for (t in 1:(as.integer(TimeCourse/TimeInterval)+1)) {
-        time <- (t - 1) * TimeInterval
+    for (t in 1:(as.integer(TimeCourse/Interval)+1)) {
+        time <- (t - 1) * Interval
         time_var <- as.character(time)
         fix_status <- vector()
         for (i in 1:nrow(data2)) {

@@ -4,20 +4,20 @@
 Plot the fixation probabilities for specific details
 }
 \description{
-The function lineplot provides quick tools for plotting more detailed fixation probabilities for specific condition(s) and region(s). The function generates 2-dimensional line plots with "Time" as x, and "Fixation Probability" as y. 
+The function lineplot() provides quick tools for plotting more detailed fixation probabilities for specific condition(s) and region(s). The function generates 2-dimensional line plots with "Time" as x, and "Fixation Probability" as y. 
 }
 \usage{
 lineplot(data, Region = "All", Condition = "All")
 }
 \arguments{
   \item{data}{
-is the data frame returned by get_pattern function.
+the data frame returned by get_pattern function.
 }
   \item{Region}{
-is the intended region(s) to plot. It can be a string ("All"), a number (e.g., 1), or a vector (e.g., c(1,2)).
+the intended region(s) to plot. It can be a string ("All"), a number (e.g., 1), or a vector (e.g., c(1,2)).
 }
   \item{Condition}{
-is the intended condition(s) to plot.It can be a string ("All"), a number (e.g., 1), or a vector (e.g., c(1,2)). 
+the intended condition(s) to plot. It can be a string ("All"), a number (e.g., 1), or a vector (e.g., c(1,2)). 
 }
 }
 \author{
