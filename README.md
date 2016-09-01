@@ -138,5 +138,6 @@ After that you can conduct MLR on the new dataset, by referring to the [MLR guid
 
 ##References
 Barr, D. J. (2008). Analyzing ‘visual world’eyetracking data using multilevel logistic regression. Journal of memory and language, 59(4), 457-474.
+
 Cao, J., Wang, J., Wang, S., & Chen, H.-C. (2016). Spatio-temporal fixation pattern analysis: A new method to analyze eye movement reading data. The 16th International Conference of Eastern Asian Languages Processing.
 
